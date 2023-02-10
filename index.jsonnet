@@ -44,17 +44,18 @@ local polygon(points, props={}) = node('polygon', {
 local path(points, props={}) = node('path', {
   d: _spacePointsList(points),
 } + props);
-local pattern(viewbox, width=0, height=0, children=[]) = node('pattern', {
-  viewBox: std.join(',', std.map(std.toString, viewbox)),
+local pattern(viewbox, x=0, y=0, width=0, height=0, props={}, children=[]) = node('pattern', {
+  viewBox: viewbox,
+  x: 0, y: 0,
   width: width, height: height,
-}, children);
+} + props, children);
 
 {
   'index.svg': svg(
     [0, 0, 230, 100],
     [
       rect([0, 0], 230, 100, props={fill: 'violet'}),
-      rect([0, 0], 230, 100, props={fill: 'url(#star)'}),
+      // rect([0, 0], 230, 100, props={fill: 'url(#star)'}),
       circle([50, 50], 50, {fill: 'url(#star)'}),
       circle([180, 50], 40, {
         fill: 'none',
@@ -69,8 +70,12 @@ local pattern(viewbox, width=0, height=0, children=[]) = node('pattern', {
     {
       'star': pattern(
         [0, 0, 10, 10],
-        '10%', '10%',
-        [
+        width='10',
+        height='10',
+        props={
+          patternUnits: 'userSpaceOnUse',
+        },
+        children=[
           polygon([
             [0, 0],
             [2, 5],
