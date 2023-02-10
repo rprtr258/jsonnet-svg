@@ -47,6 +47,7 @@ local tile(w, color) =  svg.pattern(
   'christmas.svg': svg.svg(
     [0, 0, '100%', '100%'],
     [
+      svg.rect(width='100%', height='100%', props={fill: 'red'}),
       svg.rect(width='100%', height='100%', props={fill: 'url(#tile1)'}),
       svg.rect(width='200%', height='200%', props={transform: 'translate(%(dx)f %(dy)f)' % {dx: -71, dy: -71}, fill: 'url(#tile2)'}),
     ],
