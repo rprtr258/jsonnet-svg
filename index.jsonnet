@@ -18,7 +18,6 @@ local text = svg.node('text', {
   'christmas.svg': svg.svg(
     [0, 0, '100%', '100%'],
     [
-      svg.rect(width='100%', height='100%', props={fill: 'pink'}),
       svg.rect(width='100%', height='100%', props={fill: 'url(#tile)'}),
     ],
     defs={
@@ -30,16 +29,13 @@ local text = svg.node('text', {
           patternUnits: 'userSpaceOnUse',
         },
         children=[
+          svg.rect(width=w, height=w, props={fill: 'black'}),
           svg.polygon([
-            [w*0.0, w*0.0],
-            [w*0.2, w*0.5],
-            [w*0.0, w*1.0],
-            [w*0.5, w*0.8],
-            [w*1.0, w*1.0],
-            [w*0.8, w*0.5],
-            [w*1.0, w*0.0],
-            [w*0.5, w*0.2],
-          ]),
+            [w*0.5, w*0.0],
+            [w*0.0, w*0.5],
+            [w*0.5, w*1.0],
+            [w*1.0, w*0.5],
+          ], {fill: 'red'}),
         ],
       ))(50),
     },
@@ -81,26 +77,26 @@ local text = svg.node('text', {
       ], {stroke: 'red'}),
     ],
     {
-      'star': svg.pattern(
-        [0, 0, 10, 10],
-        width='10',
-        height='10',
+      'star': (function(w) svg.pattern(
+        [0, 0, w, w],
+        width=w,
+        height=w,
         props={
           patternUnits: 'userSpaceOnUse',
         },
         children=[
           svg.polygon([
-            [0, 0],
-            [2, 5],
-            [0, 10],
-            [5, 8],
-            [10, 10],
-            [8, 5],
-            [10, 0],
-            [5, 2],
+            [w*0.0, w*0.0],
+            [w*0.2, w*0.5],
+            [w*0.0, w*1.0],
+            [w*0.5, w*0.8],
+            [w*1.0, w*1.0],
+            [w*0.8, w*0.5],
+            [w*1.0, w*0.0],
+            [w*0.5, w*0.2],
           ]),
         ],
-      ),
+      ))(10),
     },
   )
 }

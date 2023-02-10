@@ -47,9 +47,15 @@ local node(tag, props={}, children=[]) = [tag, props] + children;
   // path(points, props={}):: node('path', {
   //   d: _spacePointsList(points),
   //   } + props),
-  pattern(viewbox, x=0, y=0, width=0, height=0, props={}, children=[]):: node('pattern', {
+  pattern(
+    viewbox,
+    topleft=[0, 0],
+    width=0, height=0,
+    props={},
+    children=[],
+  ):: node('pattern', {
     viewBox: viewbox,
-    x: 0, y: 0,
+    x: topleft[0], y: topleft[1],
     width: width, height: height,
-    } + props, children),
+    } + props, [node('g', {}, children)]),
 }
