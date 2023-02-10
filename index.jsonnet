@@ -12,7 +12,7 @@ local svg(viewbox, elems, defs={}) = std.manifestXmlJsonml(node('svg',
     ) for k in std.objectFields(defs)
   ])] + elems,
 ));
-local circle(x, y, r, props={}) = node('circle', {
+local circle(x=0, y=0, r=0, props={}) = node('circle', {
   cx: x,
   cy: y,
   r: r,
