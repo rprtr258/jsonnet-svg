@@ -21,12 +21,8 @@ local triangle(base, width, height, props={}) = svg.polygon([
 ], props);
 
 local tile(w, color) =  svg.pattern(
-  [0, 0, w, w],
-  width=w,
-  height=w,
-  props={
-    patternUnits: 'userSpaceOnUse',
-  },
+  w, w,
+  props={patternUnits: 'userSpaceOnUse'},
   children=[
     svg.polygon([
       [w*0.5, w*0.0],
@@ -44,6 +40,38 @@ local tile(w, color) =  svg.pattern(
 );
 
 {
+  'hex.svg': svg.svg(
+    [0, 0, '100%', '100%'],
+    [
+      svg.rect(width='100%', height='100%', props={fill: '#2d142d'}),
+      svg.rect(width='100%', height='100%', props={fill: 'url(#tile)'}),
+    ],
+    defs={
+      'tile': (function(w) svg.pattern(
+        w*3, w*2,
+        {patternUnits: 'userSpaceOnUse'},
+        [
+          svg.polyline([
+            [-w*0.5, 0],
+            [0, w],
+            [w, w],
+            [w*1.5, 0],
+            [w*2.5, 0],
+            [w*3.0, w],
+            [w*2.5, w*2.0],
+            [w*1.5, w*2.0],
+            [w, w],
+            [0, w],
+            [-w*0.5, w*2.0],
+          ], props={
+            fill: 'none',
+            stroke: '#ff6dff',
+            'stroke-width': w/3,
+          }),
+        ],
+      ))(50),
+    },
+  ),
   'christmas.svg': svg.svg(
     [0, 0, '100%', '100%'],
     [
@@ -94,9 +122,7 @@ local tile(w, color) =  svg.pattern(
     ],
     {
       'star': (function(w) svg.pattern(
-        [0, 0, w, w],
-        width=w,
-        height=w,
+        w, w,
         props={
           patternUnits: 'userSpaceOnUse',
         },

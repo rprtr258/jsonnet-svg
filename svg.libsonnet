@@ -48,14 +48,10 @@ local node(tag, props={}, children=[]) = [tag, props] + children;
   //   d: _spacePointsList(points),
   //   } + props),
   pattern(
-    viewbox,
-    topleft=[0, 0],
     width=0, height=0,
     props={},
     children=[],
   ):: node('pattern', {
-    viewBox: viewbox,
-    x: topleft[0], y: topleft[1],
     width: width, height: height,
     } + props, [node('g', {}, children)]),
 }
