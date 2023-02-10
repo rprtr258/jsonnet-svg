@@ -14,6 +14,34 @@ local text = svg.node('text', {
   style: 'fill: red;font: bold 70px sans-serif;',
 }, ['КУПЕРТИНО']);
 
+local elka(w, transform="") = svg.node('g',
+  {
+    transform: transform,
+  },
+  [
+    svg.polygon([
+      [w*0.5, w*0.3],
+      [w*0.5+w/10, w*0.45],
+      [w*0.5-w/10, w*0.45],
+    ], {fill: 'white'}),
+    svg.polygon([
+      [w*0.5, w*0.35],
+      [w*0.5+w/8, w*0.55],
+      [w*0.5-w/8, w*0.55],
+    ], {fill: 'white'}),
+    svg.polygon([
+      [w*0.5, w*0.45],
+      [w*0.5+w/6, w*0.65],
+      [w*0.5-w/6, w*0.65],
+    ], {fill: 'white'}),
+    svg.rect(
+      [w*0.5-w/20, w*0.60],
+      w/10, w/9,
+      props={fill: 'white'},
+    ),
+  ],
+);
+
 {
   'christmas.svg': svg.svg(
     [0, 0, '100%', '100%'],
@@ -36,8 +64,13 @@ local text = svg.node('text', {
             [w*0.5, w*1.0],
             [w*1.0, w*0.5],
           ], {fill: 'red'}),
+          elka(w),
+          elka(w, 'translate(%(dx)f %(dy)f)' % {dx: w/2, dy: w/2}),
+          elka(w, 'translate(%(dx)f %(dy)f)' % {dx: -w/2, dy: w/2}),
+          elka(w, 'translate(%(dx)f %(dy)f)' % {dx: w/2, dy: -w/2}),
+          elka(w, 'translate(%(dx)f %(dy)f)' % {dx: -w/2, dy: -w/2}),
         ],
-      ))(50),
+      ))(71*2),
     },
   ),
   'heart.svg': svg.svg(
