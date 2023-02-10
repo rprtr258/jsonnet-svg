@@ -52,7 +52,7 @@ local tile(w, color) =  svg.pattern(
       svg.rect(width='200%', height='200%', props={transform: 'translate(%(dx)f %(dy)f)' % {dx: -71, dy: -71}, fill: 'url(#tile2)'}),
     ],
     defs={
-      'tile1': tile(71*2, 'red'),
+      'tile1': tile(71*2, 'none'),
       'tile2': tile(71*2, 'black'),
     },
   ),
