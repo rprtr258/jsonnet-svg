@@ -14,31 +14,32 @@ local text = svg.node('text', {
   style: 'fill: red;font: bold 70px sans-serif;',
 }, ['КУПЕРТИНО']);
 
-local elka(w, transform="") = svg.node('g',
-  {
-    transform: transform,
+local triangle(base, width, height, props={}) = svg.polygon([
+  [base[0], base[1]-height],
+  [base[0]+width/2, base[1]],
+  [base[0]-width/2, base[1]],
+], props);
+
+local tile(w, color) =  svg.pattern(
+  [0, 0, w, w],
+  width=w,
+  height=w,
+  props={
+    patternUnits: 'userSpaceOnUse',
   },
-  [
+  children=[
     svg.polygon([
-      [w*0.5, w*0.3],
-      [w*0.5+w/10, w*0.45],
-      [w*0.5-w/10, w*0.45],
-    ], {fill: 'white'}),
-    svg.polygon([
-      [w*0.5, w*0.35],
-      [w*0.5+w/8, w*0.55],
-      [w*0.5-w/8, w*0.55],
-    ], {fill: 'white'}),
-    svg.polygon([
-      [w*0.5, w*0.45],
-      [w*0.5+w/6, w*0.65],
-      [w*0.5-w/6, w*0.65],
-    ], {fill: 'white'}),
-    svg.rect(
-      [w*0.5-w/20, w*0.60],
-      w/10, w/9,
-      props={fill: 'white'},
-    ),
+      [w*0.5, w*0.0],
+      [w*0.0, w*0.5],
+      [w*0.5, w*1.0],
+      [w*1.0, w*0.5],
+    ], {fill: color}),
+    svg.node('g', children=[
+      triangle([w/2, w*0.4], w/4, w*0.15, {fill: 'white'}),
+      triangle([w/2, w*0.55], w/3, w*0.25, {fill: 'white'}),
+      triangle([w/2, w*0.7], w/2.4, w*0.25, {fill: 'white'}),
+      svg.rect([w/2-w/20, w*0.65], w/10, w/9, props={fill: 'white'}),
+    ]),
   ],
 );
 
@@ -46,31 +47,12 @@ local elka(w, transform="") = svg.node('g',
   'christmas.svg': svg.svg(
     [0, 0, '100%', '100%'],
     [
-      svg.rect(width='100%', height='100%', props={fill: 'url(#tile)'}),
+      svg.rect(width='100%', height='100%', props={fill: 'url(#tile1)'}),
+      svg.rect(width='200%', height='200%', props={transform: 'translate(%(dx)f %(dy)f)' % {dx: -71, dy: -71}, fill: 'url(#tile2)'}),
     ],
     defs={
-      'tile': (function(w) svg.pattern(
-        [0, 0, w, w],
-        width=w,
-        height=w,
-        props={
-          patternUnits: 'userSpaceOnUse',
-        },
-        children=[
-          svg.rect(width=w, height=w, props={fill: 'black'}),
-          svg.polygon([
-            [w*0.5, w*0.0],
-            [w*0.0, w*0.5],
-            [w*0.5, w*1.0],
-            [w*1.0, w*0.5],
-          ], {fill: 'red'}),
-          elka(w),
-          elka(w, 'translate(%(dx)f %(dy)f)' % {dx: w/2, dy: w/2}),
-          elka(w, 'translate(%(dx)f %(dy)f)' % {dx: -w/2, dy: w/2}),
-          elka(w, 'translate(%(dx)f %(dy)f)' % {dx: w/2, dy: -w/2}),
-          elka(w, 'translate(%(dx)f %(dy)f)' % {dx: -w/2, dy: -w/2}),
-        ],
-      ))(71*2),
+      'tile1': tile(71*2, 'red'),
+      'tile2': tile(71*2, 'black'),
     },
   ),
   'heart.svg': svg.svg(
