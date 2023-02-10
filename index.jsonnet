@@ -1,15 +1,17 @@
 local node(tag, props={}, children=[]) = [tag, props] + children;
-local svg(viewbox, elems, defs={}) = std.manifestXmlJsonml([
-  'svg',
+local svg(viewbox, elems, defs={}) = std.manifestXmlJsonml(node('svg',
   {
     viewBox: std.join(' ', std.map(std.toString, viewbox)),
     xmlns: 'http://www.w3.org/2000/svg',
   },
-  node('defs', {}, [
-    [defs[k][0], defs[k][1] + {id: k}, defs[k][2]]
-    for k in std.objectFields(defs)
-  ]),
-] + elems);
+  [node('defs', children=[
+    node(
+      defs[k][0],
+      defs[k][1] + {id: k},
+      [defs[k][2]],
+    ) for k in std.objectFields(defs)
+  ])] + elems,
+));
 local circle(x, y, r, props={}) = node('circle', {
   cx: x,
   cy: y,
