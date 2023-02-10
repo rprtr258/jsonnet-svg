@@ -6,10 +6,12 @@ local _spacePointsList(points) = std.join(' ', _commaPoints(points));
 local node(tag, props={}, children=[]) = [tag, props] + children;
 
 {
+  node:: node,
   svg(viewbox, elems, defs={}):: std.manifestXmlJsonml(node('svg',
     {
       viewBox: std.join(' ', std.map(std.toString, viewbox)),
       xmlns: 'http://www.w3.org/2000/svg',
+      'xmlns:xlink': 'http://www.w3.org/1999/xlink',
     },
     [node('defs', children=[
       node(
@@ -43,9 +45,9 @@ local node(tag, props={}, children=[]) = [tag, props] + children;
   polygon(points, props={}):: node('polygon', {
     points: _spacePointsList(points),
     } + props),
-  path(points, props={}):: node('path', {
-    d: _spacePointsList(points),
-    } + props),
+  // path(points, props={}):: node('path', {
+  //   d: _spacePointsList(points),
+  //   } + props),
   pattern(viewbox, x=0, y=0, width=0, height=0, props={}, children=[]):: node('pattern', {
     viewBox: viewbox,
     x: 0, y: 0,
