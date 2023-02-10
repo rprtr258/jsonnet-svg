@@ -5,10 +5,10 @@ local svg(viewbox, elems, defs={}) = std.manifestXmlJsonml([
     viewBox: std.join(' ', std.map(std.toString, viewbox)),
     xmlns: 'http://www.w3.org/2000/svg',
   },
-  ['defs', {}] + [
+  node('defs', {}, [
     [defs[k][0], defs[k][1] + {id: k}, defs[k][2]]
     for k in std.objectFields(defs)
-  ]
+  ]),
 ] + elems);
 local circle(x, y, r, props={}) = node('circle', {
   cx: x,
